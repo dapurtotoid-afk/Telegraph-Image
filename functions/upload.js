@@ -17,6 +17,10 @@ export async function onRequestPost(context) {
 
         const fileName = uploadFile.name;
         const fileExtension = fileName.split('.').pop().toLowerCase();
+        const allowedFormats = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+if (!allowedFormats.includes(fileExtension)) {
+    throw new Error(`Format ${fileExtension} tidak didukung`);
+}
 
         const telegramFormData = new FormData();
         telegramFormData.append("chat_id", env.TG_Chat_ID);
